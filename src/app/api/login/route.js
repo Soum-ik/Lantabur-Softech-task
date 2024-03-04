@@ -1,20 +1,24 @@
-import { TokenCookie } from "@/app/utility/tokenCookie";
-import { cookies } from "next/headers";
-import { NextResponse } from "next/server"; 
+import { CreateToken } from "@/app/utility/JwtTokenHelper";
+import { NextResponse } from "next/server";
 
 export async function POST(req, res) {
   try {
     const reqbody = await req.json();
     const { password, email } = reqbody;
-    if (email === "test@gmail.com" && password === `200`) {
-      let Cookie = await TokenCookie(email);
+    if (email === "test@gmail.com" && password === "200") {
+      let token = await CreateToken(email);
+      const cookieString = `token=${token}; expires=24h; path=/`;
+      console.log(cookieString, "cookie");
 
       return NextResponse.json(
-        { status: true, message: "Login Success", data: reqbody},
-        { status: 200, headers: Cookie }
+        { status: true, message: "Login Success", data: reqbody },
+        { status: 200, headers: { "Set-Cookie": cookieString } }
       );
     } else {
-      return NextResponse.json({ status: false, message: "your data is not matched" });
+      return NextResponse.json({
+        status: false,
+        message: "Your data is not matched",
+      });
     }
   } catch (error) {
     console.error("Error occurred:", error);
@@ -24,6 +28,6 @@ export async function POST(req, res) {
 }
 
 export async function GET(req, res) {
-  cookies().delete("token");
-  return NextResponse.json({ status: true, message: "Logout Success" });
+  // Clearing the cookie by setting an expired date
+  return NextResponse.json({ status: true, message: "Logout Success" }, { status: 200, headers: { "Set-Cookie": "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/" } });
 }

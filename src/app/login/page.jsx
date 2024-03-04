@@ -5,6 +5,7 @@ import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function Login() {
+  const router = useRouter();
   const [form, setForm] = useState({
     name: "",
     email: "test@gmail.com",
@@ -13,7 +14,6 @@ export default function Login() {
   const handleChange = (name, value) => {
     setForm({ ...form, [name]: value });
   };
-  const router = useRouter();
   const handleForm = async (e) => {
     e.preventDefault();
 
@@ -47,7 +47,7 @@ export default function Login() {
 
       if (json["status"] === true) {
         toast.success(json["message"]);
-        router.replace("/private");
+        router.push("/private");
         console.table(json.data);
       } else {
         setForm({

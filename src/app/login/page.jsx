@@ -1,0 +1,89 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
+
+export default function Login() {
+  const [form, setForm] = useState({
+    name: "",
+    email: "test@gmail.com",
+    password: "200",
+  });
+  const handleChange = (name, value) => {
+    setForm({ ...form, [name]: value });
+  };
+  const router = useRouter();
+  const handleForm = async (e) => {
+    e.preventDefault();
+    if (form.email === "" || form.password === "" || form.username === "") {
+      return;
+    }
+
+    const config = { method: "POST", body: JSON.stringify(form) };
+    try {
+      const response = await fetch("/api/login", config);
+      const json = await response.json();
+      
+      if (json["status"] == true) {
+        window.location.reload();
+        console.log(json.data);
+        toast.success(json["message"]);
+        router.replace("/");
+      } else {
+        alert(json["message"]);
+      }
+    } catch (error) {
+      console.error('Error occurred: ', error);
+    }
+};
+
+
+  return (
+    <>
+      {/* component */}
+      <div className="bg-grey-lighter min-h-screen flex flex-col">
+        <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
+          <form
+            onSubmit={handleForm}
+            className="bg-white px-6 py-8 rounded shadow-md text-black w-full min-w-[400px]"
+          >
+            <h1 className="mb-8 text-3xl text-center">Log In</h1>
+            <input
+              type="text"
+              className="block border border-grey-light w-full p-3 rounded mb-4"
+              name="fullname"
+              value={form.name}
+              placeholder="Full Name"
+              onChange={(e) => handleChange("name", e.target.value)}
+            />
+            <input
+              type="text"
+              className="block border border-grey-light w-full p-3 rounded mb-4"
+              name="email"
+              value={form.email}
+              onChange={(e) => handleChange("email", e.target.value)}
+              placeholder="Email"
+            />
+            <input
+              type="password"
+              className="block border border-grey-light w-full p-3 rounded mb-4"
+              name="password"
+              value={form.password}
+              onChange={(e) => handleChange("password", e.target.value)}
+              placeholder="Password"
+            />
+
+            <button
+              type="submit"
+              className="w-full text-center py-3 rounded bg-green text-white  bg-green-800 focus:outline-none my-1"
+            >
+              Log In
+            </button>
+          </form>
+          <Toaster position="top-center" reverseOrder={false} />
+        </div>
+      </div>
+    </>
+  );
+}

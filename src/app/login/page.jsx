@@ -16,7 +16,27 @@ export default function Login() {
   const router = useRouter();
   const handleForm = async (e) => {
     e.preventDefault();
-    if (form.email === "" || form.password === "" || form.username === "") {
+
+    // Form validation
+    if (
+      form.name.trim() === "" ||
+      form.email.trim() === "" ||
+      form.password.trim() === ""
+    ) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+
+    // Email validation using regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(form.email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
+    // Password length validation
+    if (form.password.length < 3) {
+      toast.error("Password must be at least 6 characters long");
       return;
     }
 
@@ -24,20 +44,23 @@ export default function Login() {
     try {
       const response = await fetch("/api/login", config);
       const json = await response.json();
-      
-      if (json["status"] == true) {
-        window.location.reload();
-        console.log(json.data);
+
+      if (json["status"] === true) {
         toast.success(json["message"]);
-        router.replace("/");
+        router.replace("/private");
+        console.table(json.data);
       } else {
-        alert(json["message"]);
+        setForm({
+          name: "",
+          email: "",
+          password: "",
+        });
+        toast.error(json["message"]);
       }
     } catch (error) {
-      console.error('Error occurred: ', error);
+      console.error("Error occurred: ", error);
     }
-};
-
+  };
 
   return (
     <>
@@ -66,7 +89,7 @@ export default function Login() {
               placeholder="Email"
             />
             <input
-              type="password"
+              type="text"
               className="block border border-grey-light w-full p-3 rounded mb-4"
               name="password"
               value={form.password}
@@ -76,7 +99,7 @@ export default function Login() {
 
             <button
               type="submit"
-              className="w-full text-center py-3 rounded bg-green text-white  bg-green-800 focus:outline-none my-1"
+              className="w-full text-center py-3 rounded bg-green  bg-neutral-900 text-neutral-200 focus:outline-none my-1"
             >
               Log In
             </button>

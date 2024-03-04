@@ -24,7 +24,7 @@ export default function Login() {
 
             <button
               type="submit"
-              className="w-full text-center py-3 rounded bg-green text-white bg-green-800 focus:outline-none my-1"
+              className="w-full text-center py-3 rounded    bg-neutral-900 focus:outline-none my-1"
             >
               Log In
             </button>

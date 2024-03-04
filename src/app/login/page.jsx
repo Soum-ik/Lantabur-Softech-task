@@ -1,11 +1,11 @@
 "use client";
-
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
+
 export default function Login() {
-  const router = useRouter();
+  const router = useRouter()
   const [form, setForm] = useState({
     name: "",
     email: "test@gmail.com",

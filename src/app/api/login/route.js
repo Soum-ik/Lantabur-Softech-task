@@ -8,7 +8,7 @@ export async function POST(req, res) {
     if (email === "test@gmail.com" && password === "200") {
       let token = await CreateToken(email);
       const cookieString = `token = ${token}; Max-age = 7200; Secure; HttpOnly; path=/;`;
-      console.log(cookieString, "cookie");
+      
 
       return NextResponse.json(
         { status: true, message: "Login Success", data: reqbody },

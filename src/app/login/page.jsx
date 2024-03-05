@@ -46,7 +46,7 @@ export default function Login() {
       const json = await response.json();
 
       if (json["status"] === true) {
-        router.replace("/private");
+        router.replace("/");
         // toast.success(json["message"]);
       } else {
         setForm({

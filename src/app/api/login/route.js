@@ -21,7 +21,7 @@ export async function POST(req, res) {
       });
     }
   } catch (error) {
-    console.error("Error occurred:", error);
+    console.error("Error occurred:", error)
 
     return NextResponse.json({ status: "fail", error: error });
   }

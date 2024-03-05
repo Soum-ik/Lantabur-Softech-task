@@ -18,6 +18,6 @@ export async function CheckCookieAuth(req) {
     });
   } catch (e) {
     console.log(e);
-    return NextResponse.redirect(new URL("/login", req.url));
+    return NextResponse.redirect(new URL("/", req.url));
   }
 }

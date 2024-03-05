@@ -16,6 +16,6 @@ export async function VerifyToken(token) {
    
   const secret = new TextEncoder().encode(process.env.JWT_SECRET);
   let VerifyToken = await jwtVerify(token, secret);
-  console.log(VerifyToken["payload"]);
+  console.log(VerifyToken["payload"], "token");
   return VerifyToken["payload"];
 }

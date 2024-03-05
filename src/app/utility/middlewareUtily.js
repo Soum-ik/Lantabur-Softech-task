@@ -3,11 +3,7 @@ import { VerifyToken } from "./JwtTokenHelper";
 
 export async function CheckCookieAuth(req) {
   try {
-    if (!req.cookies) { 
-      return
-    }
-
-    // Retrieve the token from the cookies
+         // Retrieve the token from the cookies
     let token = req.cookies.get("token");
 
     // Ensure that the token is not null or undefined

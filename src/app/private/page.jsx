@@ -1,4 +1,4 @@
-"use client"; 
+"use client";
 import { useRouter } from "next/navigation";
 
 export default function Page() {
@@ -14,8 +14,13 @@ export default function Page() {
   return (
     <div className=" space-x-2">
       <span>This is a Private page</span>
-      <button onClick={logout} className=" px-3 py-2 text-center overflow-hidden rounded-md bg-neutral-800 shadow-xl text-sm font-medium select-none text-neutral-200" href="/">  Log Out</button>
-
+      <button
+        onClick={logout}
+        className=" px-3 py-2 text-center overflow-hidden rounded-md bg-neutral-800 shadow-xl text-sm font-medium select-none text-neutral-200"
+      >
+        {" "}
+        Log Out
+      </button>
     </div>
   );
 }

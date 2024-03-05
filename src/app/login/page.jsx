@@ -45,9 +45,9 @@ export default function Login() {
       const response = await fetch("/api/login", config);
       const json = await response.json();
 
-      if (json["status"] === true) {
-        router.replace("/");
-        // toast.success(json["message"]);
+      if (json["status"] == true) {
+        router.replace("/private");
+        toast.success(json["message"]);
       } else {
         setForm({
           name: "",

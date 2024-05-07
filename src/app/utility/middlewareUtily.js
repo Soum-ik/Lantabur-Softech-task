@@ -11,11 +11,13 @@ export async function CheckCookieAuth(request) {
     let payload = await VerifyToken(token["value"]);
     const requestHeaders = new Headers(request.headers);
     requestHeaders.set("email", payload["email"]);
+    console.log("starting point", requestHeaders, "request header");
+    console.log(payload["email"]);
     return NextResponse.next({
       request: { headers: requestHeaders },
     });
   } catch (e) {
-    console.log(e);
-    return NextResponse.redirect(new URL("/public", request.url));
+    console.log(e, "token nai");
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 }

@@ -6,4 +6,4 @@
 
 
 ## Production dile middleware kaj korte se na tai video kore dilam https://staging.streamable.com/mbgx6k  ---npm run dev
-https://staging.streamable.com/tz3mgh --- npm start
+https://staging.streamable.com/tz3mgh -- 
